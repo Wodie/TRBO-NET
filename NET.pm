@@ -58,8 +58,8 @@ sub new
     #print "settings: " . Dumper(\%h);
     
     my %defaults = (
-        'registry_poll_interval' => 150,
-        'registry_timeout' => 340,
+        'registry_poll_interval' => 900,
+        'registry_timeout' => 1800,
         'tms_init_retry_interval' => 10,
         'tms_max_retry_interval' => 20*60,
         'tms_queue_max_age' => 2*3600,
@@ -194,7 +194,17 @@ sub configure_radio($$)
     my $radio = $self->add_radio($rx->{'id'});
     
     $radio->{'callsign'} = $rx->{'callsign'};
-    $self->{'reg_call'}->{$rx->{'callsign'}} = $radio;
+    $radio->{'short_callsign'} = $rx->{'short_callsign'};
+    $radio->{'name'} = $rx->{'name'};
+    $radio->{'symbol'} = $rx->{'symbol'};
+    $radio->{'email_username'} = $rx->{'email_username'};
+    $radio->{'email_password'} = $rx->{'email_password'};
+    $radio->{'sms_username'} = $rx->{'sms_username'};
+    $radio->{'sms_password'} = $rx->{'sms_password'};
+    $radio->{'sms_reply_id'} = $rx->{'sms_reply_id'};
+    $radio->{'sms_reply_phone'} = $rx->{'sms_reply_phone'};
+
+   $self->{'reg_call'}->{$rx->{'callsign'}} = $radio;
     
     return $radio;
 }
